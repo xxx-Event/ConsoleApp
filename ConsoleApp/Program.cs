@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 
 namespace ConsoleApp
 {
@@ -14,22 +14,31 @@ namespace ConsoleApp
         private const int SnakeState2 = 1;
         private const int SnakeState3 = 2;
         private static readonly int SnakeMoveCount = 50;
-        private static readonly int Snake = 3;
+        private static readonly int SnakeRow = 5;
+        private static readonly int SnakeSleepTime = 1000;
+
         static void Main(string[] args)
         {
-            int x = 1;
-            while (x < 50)
+            int x = SnakeState1;
+            while (x < SnakeMoveCount)
             {
                 Console.Clear();
-                Console.SetCursorPosition(x, 5);
+                Console.SetCursorPosition(x, SnakeRow);
 
-                if (x % 3 == 0)
-                    Console.WriteLine(" __@");
-                else if (x % 3 == 1)
-                    Console.WriteLine("_^@");
-                else
-                    Console.WriteLine("^_@");
-                Thread.Sleep(100);
+                switch (x % SnakeStateTotal)
+                {
+                    case SnakeState1:
+                        Console.WriteLine("__@");
+                        break;
+                    case SnakeState2:
+                        Console.WriteLine("_^@");
+                        break;
+                    case SnakeState3:
+                        Console.WriteLine("^_@");
+                        break;
+                }
+
+                Thread.Sleep(SnakeSleepTime);
                 x++;
             }
         }
